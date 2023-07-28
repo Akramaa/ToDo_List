@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>To Do List</title>
+<style type="text/css">
+body{
+margin:0px;
+padding:0px;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+}
+.to-do-box{
+background:#35C9DD;
+border:2px solid green;
+width:400px;
+height:100vh;
+position:absolute;
+overflow:scroll;
+}
+.typing-box{
+padding:15px 10px 5px;
+postion:sticky;
+}
+.typing-box input[type="text"]{
+background:pink;
+width:70%;
+height:30px;
+border-radius:10px;
+border:2px solid black;
+}
+.typing-box input[type="submit"]{
+padding:5px;
+height:35px;
+border-radius:10px;
+float:right;
+border:0;
+outline:0;
+background:blue;
+color:white;
+width:25%;
+font-size:15px;
+}
+.massage-box{
+background:orange;
+padding:5px 0px;
+display:flex;
+gap:30px;
+flex-direction:row;
+align-items:center;
+margin-bottom:5px;
+font-size:15px;
+}
+.delete{ 
+width:30px;
+height:30px;
+display:flex;
+justify-content:center;
+align-items:center;
+border-radius:100%;
+padding-bottom:2px;
+background:black;
+color:white;
+user-select:none;
+position:absolute;
+right:10px;
+}
+.delete:active{
+width:25px;
+height:25px;
+display:flex;
+justify-content:center;
+align-items:center;
+border-radius:100%;
+padding-bottom:2px;
+background:grey;
+color:white;
+transition:.05s;
+}
+.list{
+background:orange; 
+font-family:times new roman; 
+padding:3px 45px 3px 35px; 
+text-align:justify; 
+color:black;
+list-style:none;
+}
+.span{
+position:absolute;
+left:10px; 
+border-radius:100%; 
+background:white; 
+width:20px;
+padding:0px;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+</style>
+</head>
+<body>
+<div class="to-do-box">
+<div class="typing-box">
+<label>
+<input type="text" placeholder="Note Something.." class="note">
+</label>
+<label>
+<input type="submit" class="button">
+</label>
+</div>
+<div class="massage-container">
+</div>
+</div>
+<script type="text/javascript">
+let input = document.querySelector(".note");
+let btn = document.querySelector(".button");
+let massageStorage = document.querySelector(".massage-container");
+var array = [];
+btn.onclick = ()=>{
+if(input.value == ""){
+alert("Write a Note...")
+}else{
+array.push(input.value);
+input.value = "";
+display();
+}
+}
+function display(){
+let useArray = "";
+ array.forEach((data ,index) =>{
+useArray = `<div class="massage-box"><li class="list">
+            <span class="span">${index+1}</span>${data}</li><div class="delete" onclick = deleteinfo(${index})>x</div></div>`;            
+})
+massageStorage.innerHTML += useArray;
+}
+function deleteinfo(id){
+let useArray;
+massageStorage.innerHTML = "";
+array.splice(id ,1);
+array.forEach((data,index)=>{
+useArray = `<div class="massage-box"><li class="list">
+            <span class="span">${index+1}</span>${data}</li><div class="delete" onclick = deleteinfo(${index})>x</div></div>`;
+massageStorage.innerHTML += useArray;            
+})
+}
+</script>
+</body>
+</html>
